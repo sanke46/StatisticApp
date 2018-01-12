@@ -40,7 +40,7 @@ class Tab1Fragment : Fragment() {
             }
 
             override fun onDataChange(dataSnapshot: DataSnapshot?) {
-
+                array.clear()
 
                 dataSnapshot?.children?.forEach { child : DataSnapshot ->
                     //                    if (child.key.toString() == nameLocation) {
@@ -50,6 +50,7 @@ class Tab1Fragment : Fragment() {
                         }
 
                         override fun onDataChange(dataSnapshot2: DataSnapshot?) {
+
                             dataSnapshot2?.children?.forEach { child2: DataSnapshot ->
 //                                println(child2.child("date").value)
 //                                println(child2.child("value").value)
@@ -72,7 +73,15 @@ class Tab1Fragment : Fragment() {
 
         fireBase.allTabLikesAndDislike2(averageInterest, starPercent, starPercent2, starPercent3, starPercent4, starPercent5, allReview)
         fireBase.allTabLikesAndDislike(likesNumber, dislikesNumber)
-//        mDatabase = FirebaseDatabase.getInstance().reference
+
+        // delete all in firebase SEVICE
+        deleteAll.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(p0: View?) {
+                fireBase.deleteBase()
+                fireBase.allTabLikesAndDislike2(averageInterest, starPercent, starPercent2, starPercent3, starPercent4, starPercent5, allReview)
+                fireBase.allTabLikesAndDislike(likesNumber, dislikesNumber)
+            }
+        })
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,

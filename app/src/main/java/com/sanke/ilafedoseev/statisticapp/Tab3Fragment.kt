@@ -25,8 +25,8 @@ class Tab3Fragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         var fireBase = FireBaseRealTime("гагарина")
-
         val array = ArrayList<Like>()
+        scrollView.smoothScrollTo(0, 0)
 
         mDeviceRef.addValueEventListener(object : ValueEventListener {
 
@@ -35,7 +35,7 @@ class Tab3Fragment : Fragment() {
             }
 
             override fun onDataChange(dataSnapshot: DataSnapshot?) {
-
+                array.clear()
 
                 dataSnapshot?.children?.forEach { child : DataSnapshot ->
                     //                    if (child.key.toString() == nameLocation) {
@@ -45,6 +45,7 @@ class Tab3Fragment : Fragment() {
                         }
 
                         override fun onDataChange(dataSnapshot2: DataSnapshot?) {
+
                             dataSnapshot2?.children?.forEach { child2: DataSnapshot ->
                                 //                                println(child2.child("date").value)
 //                                println(child2.child("value").value)
@@ -68,7 +69,15 @@ class Tab3Fragment : Fragment() {
 
         fireBase.allTabLikesAndDislike2(averageInterest2, starPercent1, starPercent22, starPercent32, starPercent42, starPercent52, allReview2)
         fireBase.allTabLikesAndDislike(likesNumber2, dislikesNumber2)
-//        mDatabase = FirebaseDatabase.getInstance().reference
+
+        // delete all in firebase ГАГАРИНА
+        deleteAll2.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(p0: View?) {
+                fireBase.deleteBase()
+                fireBase.allTabLikesAndDislike2(averageInterest2, starPercent1, starPercent22, starPercent32, starPercent42, starPercent52, allReview2)
+                fireBase.allTabLikesAndDislike(likesNumber2, dislikesNumber2)
+            }
+        })
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,

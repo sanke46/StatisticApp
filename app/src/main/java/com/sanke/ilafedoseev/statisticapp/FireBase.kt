@@ -10,7 +10,7 @@ class FireBaseRealTime(var nameLocation: String ) {
 
     var mDataBase : DatabaseReference = FirebaseDatabase.getInstance().getReference()
     var mDeviceRef = mDataBase.child(nameLocation).child("devices")
-    var mTabloRef = mDataBase.child("tablo")
+    var mDelete = mDataBase.child(nameLocation)
     var mDeviceLikesRef = mDataBase.child(nameLocation).child("devices").child("sam").child("likes")
     var mTabloLikesRef = mDataBase.child(nameLocation).child("tablo").child("tabloOne").child("likes")
     var mTabloLikesRef2 = mDataBase.child(nameLocation).child("tablo")
@@ -162,6 +162,10 @@ class FireBaseRealTime(var nameLocation: String ) {
 
             })
         }
+
+    fun deleteBase () {
+        mDelete.setValue("null")
+    }
 
 
     }
